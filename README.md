@@ -1,7 +1,7 @@
 # Super Mario 64 NX Launcher
 Super Mario 64 NX Launcher is an all-in-one installer, launcher, and modloader for the sm64nx fork of the PC port.
 # Introduction
-This is a GUI tool with which to handle downloading, installing, launching, and modding Super Mario 64 NX. This is handled outside of the MSYS2 environment typically used by the PC ports and allows for strictly the use of traditional Windows interfaces of windows and installers without some text being presented back to the user during necessary python interactions.
+This is a GUI tool with which to handle downloading, installing, launching, and modding Super Mario 64 NX. This is handled outside of the MSYS2 environment typically used by the PC ports and allows for strictly the use of traditional Windows interfaces of windows and installers with some text being presented back to the user during necessary python interactions.
 # Prerequisites
 While the launcher is an all-in-one tool, it does require a few prerequisites.
 1. .NET Framework 4.6 - This should be included as part of the installer, but this is the required framework if it is not installed properly for some reason.

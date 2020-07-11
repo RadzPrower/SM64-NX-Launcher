@@ -128,6 +128,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -421,21 +429,21 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:SM64 NX Launcher Installer"
-        "ProductCode" = "8:{CBEC53D1-F807-4A41-8B23-2F2B0263FDD2}"
-        "PackageCode" = "8:{76B4121D-440D-41FA-B9CC-39B1147378BC}"
+        "ProductCode" = "8:{E93C9DFE-1F52-4C7A-9959-17F3E7953D6A}"
+        "PackageCode" = "8:{13C8C764-CDAC-492E-8C80-7DD7650DB3B5}"
         "UpgradeCode" = "8:{E1A5A0B0-A06C-4AE9-A55D-4BD58F171B12}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "ProductVersion" = "8:1.0.1"
+        "Manufacturer" = "8:RadzPrower"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:SM64 NX Launcher Installer"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:RadzPrower"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"

@@ -21,7 +21,6 @@ C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Release\Micros
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Release\Microsoft.Scripting.xml
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Release\Microsoft.Scripting.Metadata.xml
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Release\Newtonsoft.Json.xml
-C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64 NX Launcher.csprojAssemblyReference.cache
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64_NX_Launcher.outputForm.resources
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64_NX_Launcher.mainForm.resources
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64_NX_Launcher.Properties.Resources.resources
@@ -31,3 +30,4 @@ C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64 N
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64 NX Launcher.csproj.CopyComplete
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64 NX Launcher.exe
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64 NX Launcher.pdb
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64 NX Launcher.csprojAssemblyReference.cache

@@ -111,6 +111,7 @@ namespace SM64_NX_Launcher
                         return;
                     }
                     if (buildBase()) return;
+                    MessageBox.Show("Your repository, dependencies, and !!base.pak have all been successfully updated.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
 
@@ -120,6 +121,7 @@ namespace SM64_NX_Launcher
                 if (answer == DialogResult.Yes)
                 {
                     updateRepo();
+                    MessageBox.Show("Your repository has been successfully updated.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -185,6 +187,7 @@ namespace SM64_NX_Launcher
                 StreamReader reader = new StreamReader(response.GetResponseStream());
                 File.WriteAllText(pakJSON, reader.ReadToEnd());
             }
+            MessageBox.Show("Your PAK List has been successfully updated.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void pullJSON(object sender, EventArgs e)
@@ -199,6 +202,7 @@ namespace SM64_NX_Launcher
             }
 
             populateGrid();
+            MessageBox.Show("Your PAK list has been successfully updated.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void outputText_TextChanged(object sender, EventArgs e)
@@ -259,11 +263,11 @@ namespace SM64_NX_Launcher
 
         private void enablePAK(PAK pak)
         {
-            if (Directory.Exists(Path.Combine(pakDir,"~" + modDir)))
+            if (Directory.Exists(Path.Combine(pakDir,"~" + pak.modDir)) && !Directory.Exists(Path.Combine(pakDir, pak.modDir)))
             {
-                Directory.Move(Path.Combine(pakDir, "~" + modDir), Path.Combine(pakDir, pak.modDir));
+                Directory.Move(Path.Combine(pakDir, "~" + pak.modDir), Path.Combine(pakDir, pak.modDir));
             }
-            else if (!Directory.Exists(Path.Combine(pakDir, pak.modDir)))
+            else if (!Directory.Exists(Path.Combine(pakDir, pak.modDir)) && !Directory.Exists(Path.Combine(pakDir, "~" + pak.modDir)))
             {
                 downloadPak(pak);
             }
@@ -271,7 +275,7 @@ namespace SM64_NX_Launcher
 
         private void disablePAK(PAK pak)
         {
-            if (Directory.Exists(Path.Combine(pakDir,pak.modDir)))
+            if (Directory.Exists(Path.Combine(pakDir, pak.modDir)) && !Directory.Exists(Path.Combine(pakDir, "~" + pak.modDir)))
             {
                 Directory.Move(Path.Combine(pakDir, pak.modDir), Path.Combine(pakDir, "~" + pak.modDir));
             }
@@ -403,6 +407,7 @@ namespace SM64_NX_Launcher
                 MessageBox.Show("Unable to update dependencies.\n\nCheck the log output or provide it for support.", "Dependency Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            MessageBox.Show("Your repository and dependencies have been successfully updated.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private Boolean checkHash(string file)
         {

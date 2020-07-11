@@ -1,0 +1,33 @@
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\win32\x86\git2-106a5f2.dll
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\win32\x86\git2-106a5f2.pdb
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\win32\x64\git2-106a5f2.dll
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\win32\x64\git2-106a5f2.pdb
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\alpine-x64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\alpine.3.9-x64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\debian-arm64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\debian.9-x64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\fedora-x64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\linux-x64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\osx\libgit2-106a5f2.dylib
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\rhel-x64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\ubuntu.16.04-arm64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\lib\ubuntu.18.04-x64\libgit2-106a5f2.so
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\LibGit2Sharp.dll.config
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\SM64 NX Launcher.exe.config
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\SM64 NX Launcher.exe
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\SM64 NX Launcher.pdb
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\LibGit2Sharp.xml
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\Microsoft.Dynamic.xml
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\Microsoft.Scripting.xml
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\Microsoft.Scripting.Metadata.xml
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\bin\Debug\Newtonsoft.Json.xml
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.csprojAssemblyReference.cache
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64_NX_Launcher.outputForm.resources
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64_NX_Launcher.mainForm.resources
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64_NX_Launcher.Properties.Resources.resources
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.csproj.GenerateResource.cache
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.csproj.CoreCompileInputs.cache
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.csproj.Fody.CopyLocal.cache
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.csproj.CopyComplete
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.exe
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.pdb

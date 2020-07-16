@@ -22,5 +22,28 @@ namespace SM64_NX_Launcher.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection activeMods {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["activeMods"]));
+            }
+            set {
+                this["activeMods"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool closeLauncher {
+            get {
+                return ((bool)(this["closeLauncher"]));
+            }
+            set {
+                this["closeLauncher"] = value;
+            }
+        }
     }
 }

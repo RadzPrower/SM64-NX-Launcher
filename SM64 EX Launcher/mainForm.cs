@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
@@ -8,8 +9,11 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Text;
 using System.Windows.Forms;
 
@@ -17,30 +21,45 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using LibGit2Sharp;
-using System.Security.Cryptography;
+using SM64_NX_Launcher.Properties;
 
 namespace SM64_NX_Launcher
 {
     public partial class mainForm : Form
     {
         JArray PAKList;
+        JArray PAKListLocal;
+        public static PAK pak;
         static string mainDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "sm64nx");
-        static string nxDir = Path.Combine(mainDir, "repo");
-        static string pakDir = Path.Combine(nxDir, "romfs");
+        public static string nxDir = Path.Combine(mainDir, "repo");
+        public static string pakDir = Path.Combine(nxDir, "romfs");
         List<Process> processes = new List<Process>();
-        static string pakJSON = Path.Combine(mainDir, @"PAKList.json");
+        static string onlineJSON = Path.Combine(mainDir, @"PAKList.json");
+        public static string localJSON = Path.Combine(mainDir, @"PAKLocal.json");
+        StringCollection gridSelections = new StringCollection();
 
         public mainForm()
         {
+            using (updateForm updateCheck = new updateForm())
+            {
+                if (updateCheck.ShowDialog() == DialogResult.OK)
+                {
+                    updateCheck.Dispose();
+                }
+            }
+
             InitializeComponent();
 
             // Handle the ApplicationExit event to know when the application is exiting.
             Application.ApplicationExit += new EventHandler(this.OnApplicationExit);
+            this.Text += Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             if (!Directory.Exists(mainDir))
             {
                 Directory.CreateDirectory(mainDir);
             }
+
+            loadSettings();
         }
 
         private void OnApplicationExit(object sender, EventArgs e)
@@ -61,24 +80,55 @@ namespace SM64_NX_Launcher
 
         private void Main_Load(object sender, EventArgs e)
         {
-            if (File.Exists(pakJSON))
+            if (!File.Exists(localJSON))
             {
-                populateGrid();
+                File.WriteAllText(localJSON, "[]");
+            }
+
+            if (File.Exists(onlineJSON))
+            {
+                populateGrid(onlineJSON);
+                populateGrid(localJSON);
             }
             else
             {
                 pullJSON();
-                populateGrid();
+                populateGrid(onlineJSON);
+                populateGrid(localJSON);
             }
         }
 
-        private void populateGrid()
+        private void populateGrid(string JSONfile)
         {
             try
             {
-                string json = File.ReadAllText(pakJSON);
-                PAKList = JArray.Parse(json);
-                modGrid.DataSource = PAKList;
+                string json = File.ReadAllText(JSONfile);
+                if (JSONfile == onlineJSON)
+                {
+                    PAKList = JArray.Parse(json);
+                    onlineGrid.DataSource = PAKList;
+
+                    foreach (DataGridViewRow row in onlineGrid.Rows)
+                    {
+                        if (gridSelections.Contains(row.Cells[5].Value.ToString()))
+                        {
+                            row.Cells[0].Value = true;
+                        }
+                    }
+                }
+                else
+                {
+                    PAKListLocal = JArray.Parse(json);
+                    localGrid.DataSource = PAKListLocal;
+
+                    foreach (DataGridViewRow row in localGrid.Rows)
+                    {
+                        if (gridSelections.Contains(row.Cells[5].Value.ToString()))
+                        {
+                            row.Cells[0].Value = true;
+                        }
+                    }
+                }
             }
             catch
             {
@@ -91,10 +141,18 @@ namespace SM64_NX_Launcher
             int result = 0;
             if (Directory.Exists(nxDir))
             {
-                using (var repo = new Repository(nxDir))
+                try
                 {
-                    Branch b = repo.Branches["master"];
-                    result = (int)b.TrackingDetails.BehindBy;
+                    using (var repo = new Repository(nxDir))
+                    {
+                        Branch b = repo.Branches["master"];
+                        result = (int)b.TrackingDetails.BehindBy;
+                    }
+                }
+                catch
+                {
+                    DeleteDirectory(nxDir);
+                    mainForm_Shown(sender, e);
                 }
             }
             else
@@ -185,7 +243,7 @@ namespace SM64_NX_Launcher
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
             {
                 StreamReader reader = new StreamReader(response.GetResponseStream());
-                File.WriteAllText(pakJSON, reader.ReadToEnd());
+                File.WriteAllText(onlineJSON, reader.ReadToEnd());
             }
             MessageBox.Show("Your PAK List has been successfully updated.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -198,10 +256,10 @@ namespace SM64_NX_Launcher
             using (HttpWebResponse response = request.GetResponse() as HttpWebResponse)
             {
                 StreamReader reader = new StreamReader(response.GetResponseStream());
-                File.WriteAllText(pakJSON, reader.ReadToEnd());
+                File.WriteAllText(onlineJSON, reader.ReadToEnd());
             }
 
-            populateGrid();
+            populateGrid(onlineJSON);
             MessageBox.Show("Your PAK list has been successfully updated.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
@@ -213,17 +271,43 @@ namespace SM64_NX_Launcher
 
         private void selectedModsButton_Click(object sender, EventArgs e)
         {
-            foreach(DataGridViewRow row in modGrid.Rows)
+            foreach(DataGridViewRow row in onlineGrid.Rows)
             {
                 Boolean enable = Convert.ToBoolean(row.Cells[0].Value);
 
                 PAK pak = new PAK();
                 pak.modName = row.Cells[1].Value.ToString();
                 pak.modCreator = row.Cells[2].Value.ToString();
-                pak.modDesc = row.Cells[3].Value.ToString();
-                pak.modDir = row.Cells[4].Value.ToString();
-                pak.modURL = row.Cells[5].Value.ToString();
-                pak.modFile = row.Cells[6].Value.ToString();
+                pak.modType = row.Cells[3].Value.ToString();
+                pak.modDesc = row.Cells[4].Value.ToString();
+                pak.modDir = row.Cells[5].Value.ToString();
+                pak.modURL = row.Cells[6].Value.ToString();
+                pak.modFile = row.Cells[7].Value.ToString();
+                pak.modHash = row.Cells[8].Value.ToString();
+
+                if (enable)
+                {
+                    enablePAK(pak);
+                }
+                else
+                {
+                    disablePAK(pak);
+                }
+            }
+
+            foreach (DataGridViewRow row in localGrid.Rows)
+            {
+                Boolean enable = Convert.ToBoolean(row.Cells[0].Value);
+
+                PAK pak = new PAK();
+                pak.modName = row.Cells[1].Value.ToString();
+                pak.modCreator = row.Cells[2].Value.ToString();
+                pak.modType = row.Cells[3].Value.ToString();
+                pak.modDesc = row.Cells[4].Value.ToString();
+                pak.modDir = row.Cells[5].Value.ToString();
+                pak.modURL = row.Cells[6].Value.ToString();
+                pak.modFile = row.Cells[7].Value.ToString();
+                pak.modHash = row.Cells[8].Value.ToString();
 
                 if (enable)
                 {
@@ -236,6 +320,45 @@ namespace SM64_NX_Launcher
             }
 
             if (launch())
+            {
+                saveSettings();
+                if (!this.closeCheck.Checked) Application.Exit();
+            }
+        }
+
+        private void noModsButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in onlineGrid.Rows)
+            {
+                PAK pak = new PAK();
+                pak.modName = row.Cells[1].Value.ToString();
+                pak.modCreator = row.Cells[2].Value.ToString();
+                pak.modType = row.Cells[3].Value.ToString();
+                pak.modDesc = row.Cells[4].Value.ToString();
+                pak.modDir = row.Cells[5].Value.ToString();
+                pak.modURL = row.Cells[6].Value.ToString();
+                pak.modFile = row.Cells[7].Value.ToString();
+                pak.modHash = row.Cells[8].Value.ToString();
+
+                disablePAK(pak);
+            }
+
+            foreach (DataGridViewRow row in onlineGrid.Rows)
+            {
+                PAK pak = new PAK();
+                pak.modName = row.Cells[1].Value.ToString();
+                pak.modCreator = row.Cells[2].Value.ToString();
+                pak.modType = row.Cells[3].Value.ToString();
+                pak.modDesc = row.Cells[4].Value.ToString();
+                pak.modDir = row.Cells[5].Value.ToString();
+                pak.modURL = row.Cells[6].Value.ToString();
+                pak.modFile = row.Cells[7].Value.ToString();
+                pak.modHash = row.Cells[8].Value.ToString();
+
+                disablePAK(pak);
+            }
+
+            if (launch() && !this.closeCheck.Checked)
             {
                 Application.Exit();
             }
@@ -265,12 +388,44 @@ namespace SM64_NX_Launcher
         {
             if (Directory.Exists(Path.Combine(pakDir,"~" + pak.modDir)) && !Directory.Exists(Path.Combine(pakDir, pak.modDir)))
             {
-                Directory.Move(Path.Combine(pakDir, "~" + pak.modDir), Path.Combine(pakDir, pak.modDir));
+                if (checkHash(Path.Combine(pakDir, "~" + pak.modDir, pak.modFile), pak))
+                {
+                    Directory.Move(Path.Combine(pakDir, "~" + pak.modDir), Path.Combine(pakDir, pak.modDir));
+                }
+                else
+                {
+                    DeleteDirectory(Path.Combine(pakDir, "~" + pak.modDir));
+                    using (progressForm PAKDownload = new progressForm("Incorrect " + pak.modName + " Hash", "Downloading new copy of " + pak.modFile + "...", pak))
+                    {
+                        if (PAKDownload.ShowDialog() == DialogResult.OK)
+                        {
+                            PAKDownload.Dispose();
+                        }
+                    }
+                }
+            }
+            else if (Directory.Exists(Path.Combine(pakDir, pak.modDir)) && (!checkHash(Path.Combine(pakDir, pak.modDir, pak.modFile), pak)))
+            {
+                using (progressForm PAKDownload = new progressForm("Incorrect " + pak.modName + " Hash", "Downloading new copy of " + pak.modFile + "...", pak))
+                {
+                    if (PAKDownload.ShowDialog() == DialogResult.OK)
+                    {
+                        PAKDownload.Dispose();
+                    }
+                }
             }
             else if (!Directory.Exists(Path.Combine(pakDir, pak.modDir)) && !Directory.Exists(Path.Combine(pakDir, "~" + pak.modDir)))
             {
-                downloadPak(pak);
+                using (progressForm PAKDownload = new progressForm(pak.modName + " PAK Download", "Downloading " + pak.modFile + "...", pak))
+                {
+                    DeleteDirectory(Path.Combine(pakDir, pak.modDir));
+                    if (PAKDownload.ShowDialog() == DialogResult.OK)
+                    {
+                        PAKDownload.Dispose();
+                    }
+                }
             }
+            gridSelections.Add(pak.modDir);
         }
 
         private void disablePAK(PAK pak)
@@ -279,17 +434,9 @@ namespace SM64_NX_Launcher
             {
                 Directory.Move(Path.Combine(pakDir, pak.modDir), Path.Combine(pakDir, "~" + pak.modDir));
             }
-        }
-
-        private void downloadPak(PAK pak)
-        {
-            using (var client = new WebClient())
+            if (gridSelections.Contains(pak.modDir))
             {
-                if (!Directory.Exists(Path.Combine(pakDir, pak.modDir)))
-                {
-                    Directory.CreateDirectory(Path.Combine(pakDir, pak.modDir));
-                }
-                client.DownloadFile(pak.modURL, Path.Combine(pakDir, pak.modDir, pak.modFile));
+                gridSelections.Remove(pak.modDir);
             }
         }
 
@@ -381,14 +528,13 @@ namespace SM64_NX_Launcher
             else
             {
                 MessageBox.Show("You are about to download the sm64nx repository.\n\nDepending on your system, this could take several minutes.\n\nDownload will begin when you clikc OK.", "Repository Download", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                try
+
+                using (progressForm repoClone = new progressForm("Repository Download", "Downloading a fresh copy of the sm64nx repository..."))
                 {
-                    Repository.Clone("https://github.com/teamsalta/sm64nx.git", nxDir);
-                }
-                catch
-                {
-                    MessageBox.Show("An error occurred cloning the repository.");
-                    return true;
+                    if (repoClone.ShowDialog() == DialogResult.OK)
+                    {
+                        repoClone.Dispose();
+                    }
                 }
             }
 
@@ -409,6 +555,7 @@ namespace SM64_NX_Launcher
             }
             MessageBox.Show("Your repository and dependencies have been successfully updated.", "Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         private Boolean checkHash(string file)
         {
             using (SHA1Managed sha1Hasher = new SHA1Managed())
@@ -426,6 +573,117 @@ namespace SM64_NX_Launcher
             }
             return false;
         }
+
+        private Boolean checkHash(string file, PAK pak)
+        {
+            if (pak.modURL is "") return true;
+            if (pak.modHash is null)
+            {
+                pullJSON();
+                return false;
+            }
+
+            using (SHA1Managed sha1Hasher = new SHA1Managed())
+            using (FileStream stream = new FileStream(file, FileMode.Open))
+            using (BufferedStream buffer = new BufferedStream(stream))
+            {
+                byte[] hash = sha1Hasher.ComputeHash(buffer);
+                StringBuilder hashString = new StringBuilder(2 * hash.Length);
+                foreach (byte b in hash)
+                {
+                    hashString.AppendFormat("{0:x2}", b);
+                }
+
+                if (hashString.ToString() == pak.modHash) return true;
+            }
+            return false;
+        }
+        public static void DeleteDirectory(string targetDir)
+        {
+            File.SetAttributes(targetDir, FileAttributes.Normal);
+
+            string[] files = Directory.GetFiles(targetDir);
+            string[] dirs = Directory.GetDirectories(targetDir);
+
+            foreach (string file in files)
+            {
+                File.SetAttributes(file, FileAttributes.Normal);
+                File.Delete(file);
+            }
+
+            foreach (string dir in dirs)
+            {
+                DeleteDirectory(dir);
+            }
+
+            Directory.Delete(targetDir, false);
+        }
+        
+        public void loadSettings()
+        {
+            if (Settings.Default.activeMods != null)
+            {
+                this.gridSelections = Settings.Default.activeMods;
+                this.closeCheck.Checked = Settings.Default.closeLauncher;
+            }
+        }
+
+        public void saveSettings()
+        {
+            Settings.Default.activeMods = this.gridSelections;
+            Settings.Default.closeLauncher = this.closeCheck.Checked;
+            Settings.Default.Save();
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            using (addForm addPAK = new addForm())
+            {
+                if (addPAK.ShowDialog() == DialogResult.OK)
+                {
+                    addPAK.Dispose();
+                }
+            }
+
+            populateGrid(localJSON);
+        }
+
+        private void removeButton_Click(object sender, EventArgs e)
+        {
+            StringCollection removals = new StringCollection();
+            foreach (DataGridViewRow row in localGrid.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells[0].Value))
+                {
+                    removals.Add(row.Cells[5].Value.ToString());
+                }
+            }
+
+            foreach (string pak in removals)
+            {
+                if (Directory.Exists(Path.Combine(pakDir, pak)))
+                {
+                    DeleteDirectory(Path.Combine(pakDir, pak));
+                }
+
+                if (Directory.Exists(Path.Combine(pakDir, "~" + pak)))
+                {
+                    DeleteDirectory(Path.Combine(pakDir, "~" + pak));
+                }
+
+                gridSelections.Remove(pak);
+
+                string jsonString = File.ReadAllText(mainForm.localJSON);
+                var list = JsonConvert.DeserializeObject<List<PAK>>(jsonString);
+                list.Remove(list.Single( s => s.modDir == pak));
+                var convertedJSON = JsonConvert.SerializeObject(list);
+                File.WriteAllText(mainForm.localJSON, convertedJSON);
+            }
+                
+            saveSettings();
+
+            populateGrid(localJSON);
+        }
     }
     public class PAK
     {
@@ -435,5 +693,7 @@ namespace SM64_NX_Launcher
         public string modDir { get; set; }
         public string modFile { get; set; }
         public string modCreator { get; set; }
+        public string modType { get; set; }
+        public string modHash { get; set; }
     }
 }

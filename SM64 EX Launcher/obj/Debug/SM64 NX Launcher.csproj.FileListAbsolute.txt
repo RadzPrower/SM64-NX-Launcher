@@ -31,3 +31,6 @@ C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX 
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.csproj.CopyComplete
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.exe
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64 NX Launcher.pdb
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64_NX_Launcher.progressForm.resources
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64_NX_Launcher.addForm.resources
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Debug\SM64_NX_Launcher.updateForm.resources

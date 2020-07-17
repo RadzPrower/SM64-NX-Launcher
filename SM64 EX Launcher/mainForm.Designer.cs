@@ -38,15 +38,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.onlineGrid = new System.Windows.Forms.DataGridView();
             this.modChecks = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modCreator = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modDir = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modFile = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modHash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pAKBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.selectedModsButton = new System.Windows.Forms.Button();
             this.noModsButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
@@ -55,10 +52,7 @@
             this.jsonButton = new System.Windows.Forms.Button();
             this.localGrid = new System.Windows.Forms.DataGridView();
             this.dataGridViewCheckBoxColumn1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,9 +62,15 @@
             this.removeButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.closeCheck = new System.Windows.Forms.CheckBox();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pAKBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.onlineGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pAKBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.localGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pAKBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // onlineGrid
@@ -118,7 +118,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.onlineGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.onlineGrid.RowHeadersVisible = false;
-            this.onlineGrid.Size = new System.Drawing.Size(800, 233);
+            this.onlineGrid.Size = new System.Drawing.Size(875, 233);
             this.onlineGrid.TabIndex = 0;
             // 
             // modChecks
@@ -130,14 +130,6 @@
             this.modChecks.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.modChecks.ToolTipText = "Allows you turn mods on or off.";
             this.modChecks.Width = 5;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "modName";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Mod";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 53;
             // 
             // modCreator
             // 
@@ -154,13 +146,6 @@
             this.modType.Name = "modType";
             this.modType.ReadOnly = true;
             this.modType.Width = 56;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "modDesc";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
             // modDir
             // 
@@ -197,11 +182,6 @@
             this.modHash.ReadOnly = true;
             this.modHash.Visible = false;
             // 
-            // pAKBindingSource
-            // 
-            this.pAKBindingSource.DataSource = typeof(SM64_NX_Launcher.PAK);
-            this.pAKBindingSource.Sort = "";
-            // 
             // selectedModsButton
             // 
             this.selectedModsButton.Location = new System.Drawing.Point(15, 15);
@@ -225,7 +205,7 @@
             // settingsButton
             // 
             this.settingsButton.Enabled = false;
-            this.settingsButton.Location = new System.Drawing.Point(1058, 240);
+            this.settingsButton.Location = new System.Drawing.Point(1128, 269);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(150, 25);
             this.settingsButton.TabIndex = 4;
@@ -250,7 +230,7 @@
             this.outputText.ForeColor = System.Drawing.SystemColors.InfoText;
             this.outputText.Location = new System.Drawing.Point(15, 536);
             this.outputText.Name = "outputText";
-            this.outputText.Size = new System.Drawing.Size(956, 191);
+            this.outputText.Size = new System.Drawing.Size(1031, 191);
             this.outputText.TabIndex = 6;
             this.outputText.Text = "";
             this.outputText.Visible = false;
@@ -311,7 +291,7 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.localGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.localGrid.RowHeadersVisible = false;
-            this.localGrid.Size = new System.Drawing.Size(800, 233);
+            this.localGrid.Size = new System.Drawing.Size(875, 233);
             this.localGrid.TabIndex = 8;
             // 
             // dataGridViewCheckBoxColumn1
@@ -324,14 +304,6 @@
             this.dataGridViewCheckBoxColumn1.ToolTipText = "Allows you turn mods on or off.";
             this.dataGridViewCheckBoxColumn1.Width = 5;
             // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "modName";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Mod";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.Width = 53;
-            // 
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -339,22 +311,6 @@
             this.dataGridViewTextBoxColumn6.HeaderText = "Creator";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.Width = 66;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "modType";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Type";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.Width = 56;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "modDesc";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Description";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
             // 
             // dataGridViewTextBoxColumn9
             // 
@@ -437,6 +393,50 @@
             this.closeCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.closeCheck.UseVisualStyleBackColor = true;
             // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "modName";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Mod";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 53;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "modType";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Type";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.Width = 56;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "modDesc";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // pAKBindingSource
+            // 
+            this.pAKBindingSource.DataSource = typeof(SM64_NX_Launcher.PAK);
+            this.pAKBindingSource.Sort = "";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "modName";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Mod";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 53;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "modDesc";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Description";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -466,8 +466,8 @@
             this.Load += new System.EventHandler(this.Main_Load);
             this.Shown += new System.EventHandler(this.mainForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.onlineGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pAKBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.localGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pAKBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

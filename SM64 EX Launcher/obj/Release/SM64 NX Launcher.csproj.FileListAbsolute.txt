@@ -33,3 +33,4 @@ C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64 N
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64_NX_Launcher.addForm.resources
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64_NX_Launcher.progressForm.resources
 C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64_NX_Launcher.updateForm.resources
+C:\Users\antho\source\repos\SM64 EX Launcher\SM64 EX Launcher\obj\Release\SM64 NX Launcher.csprojAssemblyReference.cache

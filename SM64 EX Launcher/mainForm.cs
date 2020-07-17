@@ -594,12 +594,14 @@ namespace SM64_NX_Launcher
                     hashString.AppendFormat("{0:x2}", b);
                 }
 
-                if (hashString.ToString() == pak.modHash) return true;
+                if (hashString.ToString().ToUpper() == pak.modHash) return true;
             }
             return false;
         }
         public static void DeleteDirectory(string targetDir)
         {
+            if (!Directory.Exists(targetDir)) return;
+
             File.SetAttributes(targetDir, FileAttributes.Normal);
 
             string[] files = Directory.GetFiles(targetDir);

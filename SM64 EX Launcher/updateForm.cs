@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -20,6 +21,7 @@ namespace SM64_NX_Launcher
     public partial class updateForm : Form
     {
         private int progress = 0;
+        private bool complete = false;
         private string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public updateForm()
@@ -64,13 +66,13 @@ namespace SM64_NX_Launcher
 
             if (releaseList[0].tag_name != ("v" + version))
             {
-                this.statusLabel.Text = "Downloading v" + Assembly.GetExecutingAssembly().GetName().Version.ToString() + "...";
+                this.statusLabel.Text = "Downloading " + releaseList[0].tag_name + "...";
                 this.progBar.Visible = true;
                 string tempPath = Path.Combine(Path.GetTempPath(),
                              "sm64nxlauncherinstaller",
                              version);
                 string zipPath = Path.Combine(tempPath, "installer.zip");
-                if (Directory.Exists(tempPath)) mainForm.DeleteDirectory(tempPath);
+                mainForm.DeleteDirectory(tempPath);
 
                 Task.Run(() =>
                 {
@@ -97,11 +99,25 @@ namespace SM64_NX_Launcher
                     progBar.Value = progress;
                 } while (progress < 100);
 
+                do
+                {
+                    Application.DoEvents();
+                } while (!complete);
+
                 this.statusLabel.Text = "Extracting installer...";
 
                 Task.Run(() =>
                 {
-                    ZipFile.ExtractToDirectory(zipPath, tempPath);
+                    bool unzipped = false;
+                    do
+                    {
+                        try
+                        {
+                            ZipFile.ExtractToDirectory(zipPath, tempPath);
+                            unzipped = true;
+                        }
+                        catch { }
+                    } while (!unzipped);
                 }).Wait();
 
                 ProcessStartInfo installStart = new ProcessStartInfo();
@@ -126,6 +142,7 @@ namespace SM64_NX_Launcher
         private void downloadComplete(object sender, AsyncCompletedEventArgs e)
         {
             progress = 100;
+            complete = true;
         }
 
         public class release
